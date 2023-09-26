@@ -33,14 +33,21 @@ public class Main implements ModInitializer {
 			// Get the path to the custom blocks json
 			Path modBlocksJsonPath = Path.of("./mods/customBlocks/blocks.json");
 
+			// Check for if the parent exists, if not create it
+			if (Files.exists(modBlocksJsonPath.getParent()) == false)
+			{
+				LOGGER.warn("No parent directory present. Creating");
+				Files.createDirectory(modBlocksJsonPath.getParent());
+				LOGGER.warn("Created parent directory");
+			}
+
 			// Check for if it exists, if not create it
 			if (Files.exists(modBlocksJsonPath) == false)
 			{
 				LOGGER.warn("No JSON present. Creating");
-				Files.createDirectory(modBlocksJsonPath.getParent());
 				Files.createFile(modBlocksJsonPath);
 				Files.writeString(modBlocksJsonPath, "[\n\t\n]");
-				LOGGER.warn("Created JSON", modBlocksJsonPath.toString());
+				LOGGER.warn("Created JSON");
 			}
 			
 			// Open the JSON, then parse it to get the block data
