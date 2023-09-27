@@ -4,9 +4,10 @@ Allows players to add their own custom blocks to the game. This is done using a 
 ## Todo
 - [x] Setup mod
 - [x] Load/create block settings JSON
-- [ ] Parse block settings JSON
+- [x] Parse block settings JSON
 - [ ] Create blocks from the JSON
 - [ ] Add textures and properties from the JSON
+- [ ] Blocks path can be changed (something with modmenu mod)
 
 ## Upcoming features
 - Ability to change the path where the the custom blocks are stored

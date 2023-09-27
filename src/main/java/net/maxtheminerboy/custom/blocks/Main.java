@@ -2,11 +2,12 @@ package net.maxtheminerboy.custom.blocks;
 
 import net.fabricmc.api.ModInitializer;
 
-import java.io.Console;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,9 @@ public class Main implements ModInitializer {
 
 	// Setup logger
     public static final Logger LOGGER = LoggerFactory.getLogger("custom-blocks");
+
+	// Store all of the custom blocks
+	public static ArrayList<CustomBlock> blocks = new ArrayList<>();
 
 	// When the mod loads
 	@Override
@@ -52,7 +56,20 @@ public class Main implements ModInitializer {
 			
 			// Open the JSON, then parse it to get the block data
 			String modBlocksJson = Files.readString(modBlocksJsonPath);
-			
+			JSONArray blocksJson = new JSONArray(modBlocksJson);
+
+			// Loop through all blocks and get their data
+			for (int i = 0; i < blocksJson.length(); i++) {
+				JSONObject blockData = blocksJson.getJSONObject(i);
+
+				// Get the name, and texture
+				String blockName = blockData.getString("name");
+				String blockTexture = blockData.getString("texture");
+
+				// Create a new block with the parsed data
+				CustomBlock block = new CustomBlock(blockName, blockTexture);
+				blocks.add(block);
+			}
 
 
 		} catch (Exception error) {
